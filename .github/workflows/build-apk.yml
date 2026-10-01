@@ -29,6 +29,10 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Fix on_audio_query Android manifest
+        run: |
+          sed -i 's/ package="com.lucasjosino.on_audio_query"//' /home/runner/.pub-cache/hosted/pub.dev/on_audio_query_android-1.1.0/android/src/main/AndroidManifest.xml
+
       - name: Build Android APK
         run: flutter build apk --debug
 
