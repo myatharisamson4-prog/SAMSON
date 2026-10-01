@@ -1,7 +1,0 @@
-com.example.premium_music.app-pngs-0 /data/data/com.termux/files/home/PremiumMusic/android/app/build/generated/res/pngs/debug
-com.example.premium_music.app-updated_navigation_xml-1 /data/data/com.termux/files/home/PremiumMusic/android/app/build/generated/updated_navigation_xml/debug
-com.example.premium_music.app-packageDebugResources-2 /data/data/com.termux/files/home/PremiumMusic/android/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
-com.example.premium_music.app-packageDebugResources-3 /data/data/com.termux/files/home/PremiumMusic/android/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
-com.example.premium_music.app-debug-4 /data/data/com.termux/files/home/PremiumMusic/android/app/build/intermediates/merged_res/debug/mergeDebugResources
-com.example.premium_music.app-debug-5 /data/data/com.termux/files/home/PremiumMusic/android/app/src/debug/res
-com.example.premium_music.app-main-6 /data/data/com.termux/files/home/PremiumMusic/android/app/src/main/res
