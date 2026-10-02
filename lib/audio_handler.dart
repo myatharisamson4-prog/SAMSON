@@ -40,7 +40,7 @@ class SamsonAudioHandler extends BaseAudioHandler
 
     await player.setAudioSource(AudioSource.uri(uri, tag: item));
 
-    unawaited(player.play());
+    await player.play();
   }
 
   void _updatePlaybackState() {
