@@ -21,3 +21,13 @@ subprojects {
         }
     }
 }
+
+subprojects {
+    plugins.withId("com.android.library") {
+        if (name == "on_audio_query_android") {
+            extensions.configure<com.android.build.gradle.LibraryExtension> {
+                compileSdk = 36
+            }
+        }
+    }
+}
