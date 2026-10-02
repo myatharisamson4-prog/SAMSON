@@ -41,11 +41,19 @@ jobs:
           s = p.read_text()
           if "namespace" not in s:
               s = s.replace("android {", 'android {\n    namespace "com.lucasjosino.on_audio_query_android"', 1)
-              p.write_text(s)
+          p.write_text(s)
           FIX
 
       - name: Build Android APK
         run: flutter build apk --debug
+
+      - name: Diagnose APK output
+        if: always()
+        run: |
+          echo "Searching for generated APK files..."
+          find build -type f -name "*.apk" -print || true
+          echo "Checking expected output directory..."
+          ls -la build/app/outputs/flutter-apk/ || true
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
