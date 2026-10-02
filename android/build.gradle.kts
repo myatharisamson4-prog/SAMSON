@@ -9,8 +9,8 @@ val newBuildDir: Directory =
     rootProject.layout.buildDirectory
         .dir("../../build")
         .get()
-rootProject.layout.buildDirectory.value(newBuildDir)
 
+rootProject.layout.buildDirectory.value(newBuildDir)
 
 subprojects {
     if (name == "on_audio_query_android") {
@@ -23,7 +23,7 @@ subprojects {
 }
 
 subprojects {
-    plugins.withId("com.android.library") {
+    afterEvaluate {
         if (name == "on_audio_query_android") {
             extensions.configure<com.android.build.gradle.LibraryExtension> {
                 compileSdk = 36
