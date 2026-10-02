@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:audio_service/audio_service.dart';
+import 'audio_handler.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-void main() {
+late SamsonAudioHandler audioHandler;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  audioHandler = await AudioService.init(
+    builder: () => SamsonAudioHandler(),
+    config: const AudioServiceConfig(
+      androidNotificationChannelId: 'com.samson.music.audio',
+      androidNotificationChannelName: 'SAMSON Music',
+      androidNotificationOngoing: true,
+    ),
+  );
   runApp(const SAMSONApp());
 }
 
@@ -37,7 +50,7 @@ class MusicHomePage extends StatefulWidget {
 
 class _MusicHomePageState extends State<MusicHomePage> {
   final OnAudioQuery _audioQuery = OnAudioQuery();
-  final AudioPlayer _player = AudioPlayer();
+  AudioPlayer get _player => audioHandler.player;
   final TextEditingController _searchController = TextEditingController();
 
   List<SongModel> _songs = [];
@@ -65,6 +78,8 @@ class _MusicHomePageState extends State<MusicHomePage> {
   @override
   void initState() {
     super.initState();
+    audioHandler.onNext = _playNext;
+    audioHandler.onPrevious = _playPrevious;
     _loadSongs();
   }
 
@@ -116,10 +131,12 @@ class _MusicHomePageState extends State<MusicHomePage> {
     if (song.uri == null) return;
 
     try {
-      await _player.setAudioSource(
-        AudioSource.uri(Uri.parse(song.uri!)),
+      await audioHandler.loadAndPlay(
+        uri: Uri.parse(song.uri!),
+        title: song.title,
+        artist: song.artist ?? 'Unknown artist',
+        album: song.album ?? '',
       );
-      await _player.play();
 
       if (mounted) {
         setState(() => _currentIndex = index);
@@ -168,7 +185,6 @@ class _MusicHomePageState extends State<MusicHomePage> {
 
   @override
   void dispose() {
-    _player.dispose();
     _searchController.dispose();
     super.dispose();
   }
