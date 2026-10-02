@@ -179,9 +179,17 @@ class _MusicHomePageState extends State<MusicHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Row(
+        title: Row(
           children: [
-            Icon(Icons.graphic_eq, color: Color(0xFF1DB954), size: 30),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                'assets/images/samson_music_logo.png',
+                width: 40,
+                height: 40,
+                fit: BoxFit.cover,
+              ),
+            ),
             SizedBox(width: 10),
             Text(
               'SAMSON',
