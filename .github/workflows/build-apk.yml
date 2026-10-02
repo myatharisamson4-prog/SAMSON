@@ -33,6 +33,17 @@ jobs:
         run: |
           sed -i 's/ package="com.lucasjosino.on_audio_query"//' /home/runner/.pub-cache/hosted/pub.dev/on_audio_query_android-1.1.0/android/src/main/AndroidManifest.xml
 
+      - name: Fix on_audio_query Android namespace
+        run: |
+          python3 - <<'FIX'
+          from pathlib import Path
+          p = Path("/home/runner/.pub-cache/hosted/pub.dev/on_audio_query_android-1.1.0/android/build.gradle")
+          s = p.read_text()
+          if "namespace" not in s:
+              s = s.replace("android {", 'android {\n    namespace "com.lucasjosino.on_audio_query_android"', 1)
+              p.write_text(s)
+          FIX
+
       - name: Build Android APK
         run: flutter build apk --debug
 
