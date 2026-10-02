@@ -4,18 +4,22 @@ import 'audio_handler.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-late SamsonAudioHandler audioHandler;
+SamsonAudioHandler? audioHandler;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  audioHandler = await AudioService.init(
-    builder: () => SamsonAudioHandler(),
-    config: const AudioServiceConfig(
-      androidNotificationChannelId: 'com.samson.music.audio',
-      androidNotificationChannelName: 'SAMSON Music',
-      androidNotificationOngoing: true,
-    ),
-  );
+  try {
+    audioHandler = await AudioService.init(
+      builder: () => SamsonAudioHandler(),
+      config: const AudioServiceConfig(
+        androidNotificationChannelId: 'com.samson.music.audio',
+        androidNotificationChannelName: 'SAMSON Music',
+        androidNotificationOngoing: true,
+      ),
+    ).timeout(const Duration(seconds: 5));
+  } catch (_) {
+    audioHandler = SamsonAudioHandler();
+  }
   runApp(const SAMSONApp());
 }
 
@@ -50,7 +54,7 @@ class MusicHomePage extends StatefulWidget {
 
 class _MusicHomePageState extends State<MusicHomePage> {
   final OnAudioQuery _audioQuery = OnAudioQuery();
-  AudioPlayer get _player => audioHandler.player;
+  AudioPlayer get _player => audioHandler?.player ?? AudioPlayer();
   final TextEditingController _searchController = TextEditingController();
 
   List<SongModel> _songs = [];
@@ -78,8 +82,8 @@ class _MusicHomePageState extends State<MusicHomePage> {
   @override
   void initState() {
     super.initState();
-    audioHandler.onNext = _playNext;
-    audioHandler.onPrevious = _playPrevious;
+    audioHandler!.onNext = _playNext;
+    audioHandler!.onPrevious = _playPrevious;
     _loadSongs();
   }
 
@@ -131,7 +135,7 @@ class _MusicHomePageState extends State<MusicHomePage> {
     if (song.uri == null) return;
 
     try {
-      await audioHandler.loadAndPlay(
+      await audioHandler!.loadAndPlay(
         uri: Uri.parse(song.uri!),
         title: song.title,
         artist: song.artist ?? 'Unknown artist',
