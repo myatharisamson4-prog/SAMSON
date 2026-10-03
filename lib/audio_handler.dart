@@ -33,6 +33,7 @@ class SamsonAudioHandler extends BaseAudioHandler
       title: title,
       artist: artist,
       album: album,
+      artUri: Uri.parse('asset:///assets/images/samson_music_logo.png'),
     );
 
     mediaItem.add(item);

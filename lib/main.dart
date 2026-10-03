@@ -15,6 +15,9 @@ Future<void> main() async {
         androidNotificationChannelId: 'com.samson.music.audio',
         androidNotificationChannelName: 'SAMSON Music',
         androidNotificationOngoing: true,
+        artDownscaleWidth: 512,
+        artDownscaleHeight: 512,
+        preloadArtwork: true,
       ),
     ).timeout(const Duration(seconds: 5));
   } catch (_) {
