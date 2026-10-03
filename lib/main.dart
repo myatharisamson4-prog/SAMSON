@@ -12,21 +12,17 @@ SamsonAudioHandler? audioHandler;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Permission.notification.request();
-  try {
-    audioHandler = await AudioService.init(
-      builder: () => SamsonAudioHandler(),
-      config: const AudioServiceConfig(
-        androidNotificationChannelId: 'com.samson.music.audio',
-        androidNotificationChannelName: 'SAMSON Music',
-        androidNotificationOngoing: true,
-        artDownscaleWidth: 512,
-        artDownscaleHeight: 512,
-        preloadArtwork: true,
-      ),
-    ).timeout(const Duration(seconds: 5));
-  } catch (_) {
-    audioHandler = SamsonAudioHandler();
-  }
+  audioHandler = await AudioService.init(
+    builder: () => SamsonAudioHandler(),
+    config: const AudioServiceConfig(
+      androidNotificationChannelId: 'com.samson.music.audio',
+      androidNotificationChannelName: 'SAMSON Music',
+      androidNotificationOngoing: true,
+      artDownscaleWidth: 512,
+      artDownscaleHeight: 512,
+      preloadArtwork: true,
+    ),
+  );
   runApp(const SAMSONApp());
 }
 
