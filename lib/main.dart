@@ -12,6 +12,8 @@ SamsonAudioHandler? audioHandler;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Permission.notification.request();
+  debugPrint("SAMSON: notification permission done");
+  debugPrint("SAMSON: starting AudioService.init");
   audioHandler = await AudioService.init(
     builder: () => SamsonAudioHandler(),
     config: const AudioServiceConfig(
@@ -23,6 +25,7 @@ Future<void> main() async {
       preloadArtwork: true,
     ),
   );
+  debugPrint("SAMSON: AudioService.init done");
   runApp(const SAMSONApp());
 }
 
