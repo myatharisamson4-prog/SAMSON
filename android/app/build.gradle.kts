@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.premium_music"
-    compileSdk = 36
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
