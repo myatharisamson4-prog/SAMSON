@@ -32,7 +32,7 @@ Future<void> main() async {
         artDownscaleHeight: 512,
         preloadArtwork: true,
       ),
-    ).timeout(const Duration(seconds: 8));
+    );
     debugPrint("ZELVIO: AudioService.init completed");
   } catch (e, st) {
     debugPrint("ZELVIO: AudioService.init failed: $e");
