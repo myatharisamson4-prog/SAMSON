@@ -13,7 +13,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
-    await Permission.notification.request();
+    await Permission.notification.request().timeout(const Duration(seconds: 3));
     debugPrint("ZELVIO: notification permission handled");
   } catch (e, st) {
     debugPrint("ZELVIO: notification permission error: $e");
