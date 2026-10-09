@@ -11,21 +11,35 @@ SamsonAudioHandler? audioHandler;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Permission.notification.request();
-  debugPrint("SAMSON: notification permission done");
-  debugPrint("SAMSON: starting AudioService.init");
-  audioHandler = await AudioService.init(
-    builder: () => SamsonAudioHandler(),
-    config: const AudioServiceConfig(
-      androidNotificationChannelId: 'com.zelvio.music.audio',
-      androidNotificationChannelName: 'ZELVIO Music',
-      androidNotificationOngoing: true,
-      artDownscaleWidth: 512,
-      artDownscaleHeight: 512,
-      preloadArtwork: true,
-    ),
-  );
-  debugPrint("SAMSON: AudioService.init done");
+
+  try {
+    await Permission.notification.request();
+    debugPrint("ZELVIO: notification permission handled");
+  } catch (e, st) {
+    debugPrint("ZELVIO: notification permission error: $e");
+    debugPrintStack(stackTrace: st);
+  }
+
+  try {
+    debugPrint("ZELVIO: starting AudioService.init");
+    audioHandler = await AudioService.init(
+      builder: () => SamsonAudioHandler(),
+      config: const AudioServiceConfig(
+        androidNotificationChannelId: 'com.zelvio.music.audio',
+        androidNotificationChannelName: 'ZELVIO Music',
+        androidNotificationOngoing: true,
+        artDownscaleWidth: 512,
+        artDownscaleHeight: 512,
+        preloadArtwork: true,
+      ),
+    ).timeout(const Duration(seconds: 8));
+    debugPrint("ZELVIO: AudioService.init completed");
+  } catch (e, st) {
+    debugPrint("ZELVIO: AudioService.init failed: $e");
+    debugPrintStack(stackTrace: st);
+    audioHandler = SamsonAudioHandler();
+  }
+
   runApp(const ZELVIOApp());
 }
 
