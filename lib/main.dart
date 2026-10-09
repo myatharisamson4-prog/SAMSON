@@ -17,8 +17,8 @@ Future<void> main() async {
   audioHandler = await AudioService.init(
     builder: () => SamsonAudioHandler(),
     config: const AudioServiceConfig(
-      androidNotificationChannelId: 'com.samson.music.audio',
-      androidNotificationChannelName: 'SAMSON Music',
+      androidNotificationChannelId: 'com.zelvio.music.audio',
+      androidNotificationChannelName: 'ZELVIO Music',
       androidNotificationOngoing: true,
       artDownscaleWidth: 512,
       artDownscaleHeight: 512,
@@ -26,16 +26,16 @@ Future<void> main() async {
     ),
   );
   debugPrint("SAMSON: AudioService.init done");
-  runApp(const SAMSONApp());
+  runApp(const ZELVIOApp());
 }
 
-class SAMSONApp extends StatelessWidget {
-  const SAMSONApp({super.key});
+class ZELVIOApp extends StatelessWidget {
+  const ZELVIOApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SAMSON',
+      title: 'ZELVIO',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
@@ -215,7 +215,7 @@ class _MusicHomePageState extends State<MusicHomePage> {
               ),
             ),
             SizedBox(width: 10),
-            Text('SAMSON', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text('ZELVIO', style: TextStyle(fontWeight: FontWeight.bold)),
           ],
         ),
         actions: [
@@ -459,7 +459,7 @@ class _PermissionMessage extends StatelessWidget {
             const Icon(Icons.folder_open, size: 56, color: Colors.white54),
             const SizedBox(height: 16),
             const Text(
-              'SAMSON needs permission to access music on your phone.',
+              'ZELVIO needs permission to access music on your phone.',
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),

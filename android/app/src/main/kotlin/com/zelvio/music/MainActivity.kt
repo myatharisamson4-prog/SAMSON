@@ -1,4 +1,4 @@
-package com.example.premium_music
+package com.zelvio.music
 
 import io.flutter.embedding.android.FlutterActivity
 

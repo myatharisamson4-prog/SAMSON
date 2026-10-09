@@ -1,4 +1,4 @@
-name: Build SAMSON APK
+name: Build ZELVIO APK
 
 on:
   workflow_dispatch:
@@ -58,7 +58,7 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: SAMSON-debug-APK
+          name: ZELVIO-debug-APK
           path: build/app/outputs/flutter-apk/app-debug.apk
           if-no-files-found: error
           retention-days: 14
